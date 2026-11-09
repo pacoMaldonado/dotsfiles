@@ -1,0 +1,19 @@
+# ==============================================================================
+# GHOSTTY CONFIGURATION (Fedora KDE Plasma / Wayland)
+# ==============================================================================
+
+# Tipografía (JetBrainsMono Nerd Font o FiraCode Nerd Font)
+font-family = "JetBrainsMono Nerd Font"
+# font-family = "FiraCode Nerd Font"
+font-size = 12
+
+# Ventana y apariencia en Wayland / KDE
+window-padding-x = 10
+window-padding-y = 8
+background-opacity = 0.95
+confirm-close-surface = false
+
+# Integración con el portapapeles de Wayland
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = false
