@@ -10,10 +10,11 @@ Diseñamos los atajos pensando en **ergonomía para Linux**: tu pulgar izquierdo
 
 ### Copiar, Pegar y Utilidades Rápidas (Mano Izquierda)
 
-| Atajo | Acción | Descripción |
+| Atajo / Acción | Función | Descripción |
 | :--- | :--- | :--- |
-| **`Alt + c`** | **Copiar** | Copia el texto seleccionado al portapapeles (reemplaza el incómodo `Ctrl+Shift+C`). |
-| **`Alt + p`** | **Pegar** | Pega el contenido del portapapeles (reemplaza `Ctrl+Shift+V`). |
+| **Seleccionar con el mouse** | **Auto-Copiar** | Gracias a `copy-on-select = clipboard`, **cualquier texto que selecciones con el mouse se copia automáticamente** sin tocar ninguna tecla. |
+| **`Alt + c`** | **Copiar** | Copia el texto seleccionado al portapapeles (por si prefieres usar teclado en lugar de `Ctrl+Shift+C`). |
+| **`Alt + v`** | **Pegar** | Pega el contenido del portapapeles usando 2 teclas cómodas (reemplaza `Ctrl+Shift+V`). |
 | **`Alt + x`** | **Limpiar pantalla** | Limpia toda la terminal inmediatamente (reemplazo ergonómico del `Cmd+K` de Mac). |
 | **`Alt + r`** | **Recargar config** | Aplica al instante cualquier cambio que hagas en `ghostty/config` (temas, shaders, fuentes) sin cerrar la terminal. |
 | **`Alt + w`** | **Cerrar panel / tab** | Cierra el panel dividido o la pestaña actual sin pedir confirmación. |
@@ -26,7 +27,7 @@ Diseñamos los atajos pensando en **ergonomía para Linux**: tu pulgar izquierdo
 
 | Atajo | Acción |
 | :--- | :--- |
-| **`Alt + v`** | Divide la terminal **a la derecha** (Vertical). |
+| **`Alt + e`** | Divide la terminal **a la derecha** (Vertical — tecla `e` justo arriba de `d`). |
 | **`Alt + d`** | Divide la terminal **abajo** (Horizontal). |
 | **`Alt + h`** | Moverse al panel de la **izquierda**. |
 | **`Alt + j`** | Moverse al panel de **abajo**. |
