@@ -29,6 +29,8 @@
 | **`ghosttyconfig`** | Abre `ghostty/config` directamente en Neovim. |
 | **`starshipconfig`** | Abre `starship/starship.toml` directamente en Neovim. |
 | **`nvimconfig`** | Entra a `nvim/` y abre tu configuración de Neovim. |
+| **`notas`** | Entra a tu bóveda de notas (`~/Proyectos/notas`) y la abre en Neovim. |
+| **`notassync`** | Hace `git add .`, `git commit` con fecha/hora y `git push` de todas tus notas a tu repo privado. |
 | **`ports`** | Muestra todos los puertos abiertos y qué programa los está usando (`ss -tulanp`). |
 | **`myip`** | Muestra tu dirección IP pública actual. |
 

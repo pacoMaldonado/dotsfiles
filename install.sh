@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # DOTFILES AUTOMATED INSTALLER - FEDORA KDE PLASMA (WAYLAND)
-# Inspirado en la arquitectura modular de Gentleman.Dots
+# Basado e inspirado en la arquitectura modular de Gentleman.Dots
 # ==============================================================================
 
 set -euo pipefail
@@ -11,6 +11,8 @@ set -euo pipefail
 # ------------------------------------------------------------------------------
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FONT_DIR="$HOME/.local/share/fonts"
+OBSIDIAN_VAULT_DIR="${OBSIDIAN_VAULT:-$HOME/Proyectos/notas}"
+NOTES_REPO_URL="${NOTES_REPO_URL:-git@github.com:pacoMaldonado/notas.git}"
 BACKUP_SUFFIX=".bak"
 
 GIT_USER_NAME="${GIT_USER_NAME:-Javier Maldonado Hernández}"
@@ -58,6 +60,7 @@ install_packages() {
     ripgrep
     fd-find
     bat
+    fzf
   )
 
   local python_build_deps=(
@@ -126,7 +129,8 @@ install_fonts() {
   local cache_needed=false
 
   for font in "${fonts[@]}"; do
-    if [[ -d "$FONT_DIR/$font" ]] && [[ -n "$(ls -A "$FONT_DIR/$font" 2>/dev/null)" ]]; then
+    # Verificar si ya existen archivos de la fuente en ~/.local/share/fonts (directo o en subcarpeta)
+    if compgen -G "$FONT_DIR/${font}*" >/dev/null || [[ -d "$FONT_DIR/$font" ]]; then
       log_info "La fuente $font Nerd Font ya está instalada. Omitiendo descarga."
     else
       log_info "Descargando ${font} Nerd Font..."
@@ -244,9 +248,6 @@ setup_symlinks() {
 # ------------------------------------------------------------------------------
 install_language_managers() {
   # --- fnm (Node.js) ---
-  # Se ejecuta después de enlazar ~/.zshrc para que el instalador agregue su bloque
-  # automáticamente en la primera instalación; en ejecuciones posteriores usamos --skip-shell
-  # si el bloque ya existe para mantener la idempotencia.
   if ! command -v fnm >/dev/null 2>&1 && [[ ! -d "$HOME/.local/share/fnm" ]]; then
     log_info "Instalando fnm de forma desatendida..."
     if grep -q "fnm env" "$HOME/.zshrc" 2>/dev/null; then
@@ -256,6 +257,18 @@ install_language_managers() {
     fi
   else
     log_info "fnm ya está instalado."
+  fi
+
+  # Instalar Node LTS automáticamente con fnm si aún no hay ninguna versión instalada
+  local fnm_bin="$HOME/.local/share/fnm/fnm"
+  if command -v fnm >/dev/null 2>&1; then
+    fnm_bin="$(command -v fnm)"
+  fi
+  if [[ -x "$fnm_bin" ]]; then
+    if ! "$fnm_bin" list 2>/dev/null | grep -q "v"; then
+      log_info "Instalando Node.js LTS con fnm..."
+      "$fnm_bin" install --lts
+    fi
   fi
 
   # --- pyenv (Python) ---
@@ -270,7 +283,26 @@ install_language_managers() {
 }
 
 # ------------------------------------------------------------------------------
-# 6. Configuración Global de Git
+# 6. Bóveda de Notas de Obsidian (~/Proyectos/notas)
+# ------------------------------------------------------------------------------
+setup_obsidian_vault() {
+  log_info "Verificando bóveda de notas de Obsidian en $OBSIDIAN_VAULT_DIR..."
+  if [[ ! -d "$OBSIDIAN_VAULT_DIR/.git" ]]; then
+    if git ls-remote "$NOTES_REPO_URL" >/dev/null 2>&1; then
+      log_info "Clonando repositorio privado de notas desde $NOTES_REPO_URL..."
+      rm -rf "$OBSIDIAN_VAULT_DIR"
+      git clone "$NOTES_REPO_URL" "$OBSIDIAN_VAULT_DIR"
+    else
+      log_info "Creando estructura local de bóveda en $OBSIDIAN_VAULT_DIR (puedes enlazar tu repo privado después)..."
+      mkdir -p "$OBSIDIAN_VAULT_DIR/diarias" "$OBSIDIAN_VAULT_DIR/proyectos" "$OBSIDIAN_VAULT_DIR/templates"
+    fi
+  else
+    log_info "Repositorio de notas ya presente en $OBSIDIAN_VAULT_DIR."
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# 7. Configuración Global de Git
 # ------------------------------------------------------------------------------
 setup_git() {
   log_info "Configurando Git globalmente..."
@@ -285,7 +317,7 @@ setup_git() {
 }
 
 # ------------------------------------------------------------------------------
-# 7. Limpieza Preventiva del Estado de Neovim
+# 8. Limpieza Preventiva del Estado de Neovim
 # ------------------------------------------------------------------------------
 clean_nvim_state() {
   log_info "Limpiando estado previo de Neovim para asegurar una instalación limpia de Treesitter..."
@@ -308,6 +340,7 @@ main() {
   setup_zsh
   setup_symlinks
   install_language_managers
+  setup_obsidian_vault
   setup_git
   clean_nvim_state
 

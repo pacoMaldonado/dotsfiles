@@ -137,6 +137,11 @@ alias ghosttyconfig="nvim \$DOTFILES/ghostty/config"
 alias starshipconfig="nvim \$DOTFILES/starship/starship.toml"
 alias nvimconfig="cd \$DOTFILES/nvim && nvim ."
 
+# Acceso directo y sincronización rápida de tu Bóveda Privada de Notas (Obsidian en Neovim)
+export OBSIDIAN_VAULT="$HOME/Proyectos/notas"
+alias notas="cd \$OBSIDIAN_VAULT && nvim ."
+alias notassync="git -C \$OBSIDIAN_VAULT add . && git -C \$OBSIDIAN_VAULT commit -m \"sync: notas \$(date +'%Y-%m-%d %H:%M')\" && git -C \$OBSIDIAN_VAULT push"
+
 # Utilidades rápidas de sistema
 alias c="clear"
 alias ports="ss -tulanp"

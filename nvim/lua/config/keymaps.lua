@@ -23,15 +23,19 @@ vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight) -- Navigate to
 vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive) -- Navigate to the last active pane
 vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext) -- Navigate to the next pane
 
------ OBSIDIAN -----
-vim.keymap.set("n", "<leader>oc", "<cmd>Obsidian check<CR>", { desc = "Obsidian Check Checkbox" })
-vim.keymap.set("n", "<leader>ot", "<cmd>Obsidian template<CR>", { desc = "Insert Obsidian Template" })
-vim.keymap.set("n", "<leader>oo", "<cmd>Obsidian open<CR>", { desc = "Open in Obsidian App" })
-vim.keymap.set("n", "<leader>ob", "<cmd>Obsidian backlinks<CR>", { desc = "Show Obsidian Backlinks" })
-vim.keymap.set("n", "<leader>ol", "<cmd>Obsidian links<CR>", { desc = "Show Obsidian Links" })
-vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<CR>", { desc = "Create New Note" })
-vim.keymap.set("n", "<leader>os", "<cmd>Obsidian search<CR>", { desc = "Search Obsidian" })
-vim.keymap.set("n", "<leader>oq", "<cmd>Obsidian quick_switch<CR>", { desc = "Quick Switch" })
+----- OBSIDIAN (Notas en ~/Proyectos/notas) -----
+vim.keymap.set("n", "<leader>on", "<cmd>Obsidian new<CR>", { desc = "Obsidian: Crear Nueva Nota" })
+vim.keymap.set("n", "<leader>os", "<cmd>Obsidian search<CR>", { desc = "Obsidian: Buscar Texto en Notas" })
+vim.keymap.set("n", "<leader>oq", "<cmd>Obsidian quick_switch<CR>", { desc = "Obsidian: Cambiar Rápido de Nota" })
+vim.keymap.set("n", "<leader>od", "<cmd>Obsidian today<CR>", { desc = "Obsidian: Abrir Nota Diaria de Hoy" })
+vim.keymap.set("n", "<leader>oy", "<cmd>Obsidian yesterday<CR>", { desc = "Obsidian: Abrir Nota de Ayer" })
+vim.keymap.set("n", "<leader>ot", "<cmd>Obsidian template<CR>", { desc = "Obsidian: Insertar Plantilla (Template)" })
+vim.keymap.set("n", "<leader>og", "<cmd>Obsidian tags<CR>", { desc = "Obsidian: Buscar por #Tags" })
+vim.keymap.set("n", "<leader>ob", "<cmd>Obsidian backlinks<CR>", { desc = "Obsidian: Ver Backlinks (qué notas apuntan a esta)" })
+vim.keymap.set("n", "<leader>ol", "<cmd>Obsidian links<CR>", { desc = "Obsidian: Ver Enlaces de esta Nota" })
+vim.keymap.set("n", "<leader>oc", "<cmd>Obsidian toggle_checkbox<CR>", { desc = "Obsidian: Marcar/Desmarcar Checkbox [x]" })
+vim.keymap.set("n", "<leader>oo", "<cmd>Obsidian open<CR>", { desc = "Obsidian: Abrir en App de Escritorio" })
+vim.keymap.set("v", "<leader>oe", "<cmd>Obsidian extract_note<CR>", { desc = "Obsidian: Extraer selección a una Nueva Nota" })
 
 ----- OIL -----
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
