@@ -1,19 +1,170 @@
-# ==============================================================================
-# GHOSTTY CONFIGURATION (Fedora KDE Plasma / Wayland)
-# ==============================================================================
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║                     DOTFILES - GHOSTTY CONFIGURATION                         ║
+# ║            Basado en Gentleman.Dots — Adaptado para Linux (Wayland)          ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+# Guía completa de uso y personalización en: ./GUIA_GHOSTTY.md
+# TIP: Después de hacer cualquier cambio aquí, presiona [Alt + r] en Ghostty
+#      para recargar la configuración al instante sin cerrar la terminal.
 
-# Tipografía (JetBrainsMono Nerd Font o FiraCode Nerd Font)
-font-family = "JetBrainsMono Nerd Font"
-# font-family = "FiraCode Nerd Font"
-font-size = 12
 
-# Ventana y apariencia en Wayland / KDE
-window-padding-x = 10
-window-padding-y = 8
+# ┌──────────────────────────────────────────────────────────────────────────────┐
+# │ 1. TIPOGRAFÍA (FONT)                                                         │
+# └──────────────────────────────────────────────────────────────────────────────┘
+# Descomenta la fuente que prefieras usar y presiona [Alt + r]:
+
+# font-family = JetBrainsMono Nerd Font
+font-family = FiraCode Nerd Font
+
+font-size = 14
+
+
+# ┌──────────────────────────────────────────────────────────────────────────────┐
+# │ 2. VENTANA Y APARIENCIA (WINDOW)                                             │
+# └──────────────────────────────────────────────────────────────────────────────┘
+
 background-opacity = 0.95
+background-blur-radius = 20
+
+window-decoration = true
+window-padding-color = extend
+window-step-resize = false
+window-padding-balance = true
+window-height = 100
+window-width = 100
+
+# Ocultar la barra de pestañas superior (para verla siempre usa: top)
+gtk-tabs-location = hidden
+
+# No pedir confirmación al cerrar un panel o ventana
 confirm-close-surface = false
 
-# Integración con el portapapeles de Wayland
+
+# ┌──────────────────────────────────────────────────────────────────────────────┐
+# │ 3. PORTAPAPELES (CLIPBOARD - LINUX / WAYLAND)                                │
+# └──────────────────────────────────────────────────────────────────────────────┘
+
 clipboard-read = allow
 clipboard-write = allow
+
+# Si cambias a 'clipboard', cualquier texto que selecciones con el mouse se copiará solo:
 copy-on-select = false
+
+
+# ┌──────────────────────────────────────────────────────────────────────────────┐
+# │ 4. EFECTOS VISUALES / SHADERS (51 disponibles en ./shaders/)                 │
+# └──────────────────────────────────────────────────────────────────────────────┘
+# Para probar otro efecto, comenta el actual (#), descomenta otro y presiona [Alt + r].
+# Si no quieres ningún efecto, comenta todos.
+
+# --- Efectos de Estela del Cursor (Recomendados para el día a día) ---
+# custom-shader = shaders/cursor_smear_gentleman.glsl
+# custom-shader = shaders/cursor_smear.glsl
+# custom-shader = shaders/cursor_smear_fade.glsl
+# custom-shader = shaders/cursor_smear_glow.glsl
+# custom-shader = shaders/cursor_smear_gradient.glsl
+# custom-shader = shaders/cursor_smear_rainbow.glsl
+# custom-shader = shaders/cursor_blaze.glsl
+# custom-shader = shaders/cursor_blaze_2.glsl
+# custom-shader = shaders/cursor_blaze_tapered.glsl
+# custom-shader = shaders/cursor_frozen.glsl
+
+# --- Efectos de Chispas / Partículas al escribir ---
+custom-shader = shaders/blaze_sparks.glsl
+# custom-shader = shaders/sparks.glsl
+# custom-shader = shaders/sparks-from-fire.glsl
+# custom-shader = shaders/party_sparks.glsl
+# custom-shader = shaders/manga_slash.glsl
+# custom-shader = shaders/fireworks.glsl
+
+# --- Efectos de Pantalla Completa / Retro / Fondo ---
+# custom-shader = shaders/bloom.glsl
+# custom-shader = shaders/crt.glsl
+# custom-shader = shaders/bettercrt.glsl
+# custom-shader = shaders/retro-terminal.glsl
+# custom-shader = shaders/starfield.glsl
+# custom-shader = shaders/galaxy.glsl
+# custom-shader = shaders/just-snow.glsl
+# custom-shader = shaders/inside-the-matrix.glsl
+
+
+# ┌──────────────────────────────────────────────────────────────────────────────┐
+# │ 5. ATAJOS DE TECLADO PARA LINUX (KEYBINDINGS)                                │
+# └──────────────────────────────────────────────────────────────────────────────┘
+
+# Liberar Alt+Izquierda / Alt+Derecha para navegación natural
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
+# --- Copiar y Pegar cómodos con 2 teclas (sin usar 3 teclas Ctrl+Shift+C/V) ---
+keybind = alt+c=copy_to_clipboard
+keybind = alt+p=paste_from_clipboard
+
+# --- Utilidades Rápidas (Accesibles con la mano izquierda usando Alt) ---
+keybind = alt+x=clear_screen
+keybind = alt+r=reload_config
+keybind = alt+w=close_surface
+keybind = alt+t=new_tab
+keybind = alt+f=toggle_split_zoom
+
+# --- Dividir Pantalla (Splits) ---
+keybind = alt+v=new_split:right
+keybind = alt+d=new_split:down
+
+# --- Navegar entre Paneles (Estilo Vim: h, j, k, l) ---
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:down
+keybind = alt+k=goto_split:up
+keybind = alt+l=goto_split:right
+
+# --- Redimensionar Paneles ---
+keybind = ctrl+shift+j=resize_split:up,10
+keybind = ctrl+shift+k=resize_split:down,10
+keybind = ctrl+shift+h=resize_split:left,10
+keybind = ctrl+shift+l=resize_split:right,10
+
+# --- Extras para Neovim y Multilínea ---
+# Escribe 'nvim ' en la terminal y presiona [Alt + s] para abrir todo el output en Neovim
+keybind = alt+s=write_screen_file:paste
+keybind = shift+enter=text:\x1b\r
+
+
+# ┌──────────────────────────────────────────────────────────────────────────────┐
+# │ 6. TEMAS DE COLOR (THEMES)                                                   │
+# └──────────────────────────────────────────────────────────────────────────────┘
+# OPCIÓN A: Usar un tema de la carpeta ./themes/ o de los +300 integrados en Ghostty.
+# Descomenta UNO de los siguientes y presiona [Alt + r] (y comenta el bloque de abajo si quieres):
+#
+# theme = catppuccin-mocha.conf
+# theme = TokyoNight
+# theme = Kanagawa Wave
+# theme = Gruvbox Dark
+# theme = Rose Pine
+# theme = Dracula
+# theme = Nord
+
+# OPCIÓN B (Activa por defecto): Paleta Gentleman Theme
+background = 06080f
+foreground = f3f6f9
+cursor-color = e0c15a
+selection-background = 263356
+selection-foreground = f3f6f9
+
+# --- Normal Colors ---
+palette = 0=#06080f
+palette = 1=#cb7c94
+palette = 2=#b7cc85
+palette = 3=#ffe066
+palette = 4=#7fb4ca
+palette = 5=#ff8dd7
+palette = 6=#7aa89f
+palette = 7=#f3f6f9
+
+# --- Bright Colors ---
+palette = 8=#8a8fa3
+palette = 9=#de8fa8
+palette = 10=#d1e8a9
+palette = 11=#fff7b1
+palette = 12=#a3d4d5
+palette = 13=#ffaeea
+palette = 14=#7fb4ca
+palette = 15=#f3f6f9
